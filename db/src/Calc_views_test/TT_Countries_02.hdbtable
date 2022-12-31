@@ -1,0 +1,5 @@
+COLUMN TABLE "TT_Countries_02" (
+  custcountry varchar(3),
+  Country_name varchar(60),
+  Population INTEGER
+);

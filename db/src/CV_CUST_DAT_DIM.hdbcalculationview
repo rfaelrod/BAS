@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_CUST_DAT_DIM" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CV_CUST_DAT_DIM"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="TT_Customers_10">
+    <resourceUri>TT_Customers_10</resourceUri>
+  </DataSource>
+  <DataSource id="TT_Countries">
+    <resourceUri>TT_Countries</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_1" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="CUSTID"/>
+      <viewAttribute id="CUSTNAME"/>
+      <viewAttribute id="CUSTCOUNTRY"/>
+      <viewAttribute id="COUNTRY_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="TT_Customers_10">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTID" source="CUSTID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTNAME" source="CUSTNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTCOUNTRY" source="CUSTCOUNTRY"/>
+    </input>
+    <input node="TT_Countries">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY_NAME" source="COUNTRY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTCOUNTRY" source="CUSTCOUNTRY"/>
+    </input>
+    <joinAttribute name="CUSTCOUNTRY"/>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="CUSTID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTID"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTID"/>
+    </attribute>
+    <attribute id="CUSTNAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTNAME"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTNAME"/>
+    </attribute>
+    <attribute id="CUSTCOUNTRY" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTCOUNTRY"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTCOUNTRY"/>
+    </attribute>
+    <attribute id="COUNTRY_NAME" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COUNTRY_NAME"/>
+      <keyMapping columnObjectName="Join_1" columnName="COUNTRY_NAME"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="213"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="TT_Customers_10" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="169"/>
+    </shape>
+    <shape modelObjectName="TT_Countries" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="171"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

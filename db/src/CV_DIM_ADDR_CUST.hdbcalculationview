@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_DIM_ADDR_CUST" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Direcciones por cliente"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="TT_Customers_Add_10">
+    <resourceUri>TT_Customers_Add_10</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews/>
+
+<logicalModel id="TT_Customers_Add_10">
+  <attributes>
+    <attribute id="CUSTID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTID"/>
+      <keyMapping columnObjectName="TT_Customers_Add_10" columnName="CUSTID"/>
+    </attribute>
+    <attribute id="ENDDA" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ENDDA"/>
+      <keyMapping columnObjectName="TT_Customers_Add_10" columnName="ENDDA"/>
+    </attribute>
+    <attribute id="BEGDA" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="BEGDA"/>
+      <keyMapping columnObjectName="TT_Customers_Add_10" columnName="BEGDA"/>
+    </attribute>
+    <attribute id="ADD" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ADD"/>
+      <keyMapping columnObjectName="TT_Customers_Add_10" columnName="ADD"/>
+    </attribute>
+    <attribute id="PHONE" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="PHONE"/>
+      <keyMapping columnObjectName="TT_Customers_Add_10" columnName="PHONE"/>
+    </attribute>
+    <attribute id="RUC" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="RUC"/>
+      <keyMapping columnObjectName="TT_Customers_Add_10" columnName="RUC"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  </shapes>
+</layout>
+</Calculation:scenario>

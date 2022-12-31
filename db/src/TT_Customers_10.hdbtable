@@ -1,0 +1,6 @@
+COLUMN TABLE "TT_Customers_10" (
+  custid integer,
+  custname varchar(40),
+  custcountry varchar(3),
+  custregion varchar(4)
+);

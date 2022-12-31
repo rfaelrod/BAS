@@ -1,0 +1,7 @@
+COLUMN TABLE "TT_Sales_10" (
+  sid integer,
+  pid varchar(5),
+  sdate date,
+  samt integer,
+  custid integer
+);

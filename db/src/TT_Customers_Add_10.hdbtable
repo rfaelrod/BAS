@@ -1,0 +1,9 @@
+COLUMN TABLE "TT_Customers_Add_10" (
+  custid integer,
+  endda DATE,
+  begda DATE,
+  ADD nvarchar(80),
+  Phone nvarchar(20),
+  RUC varchar(20),
+  PRIMARY KEY (custid, endda)
+)

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_CUBE_REF_Sales" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Calc.View Cube Referencial"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="TT_Customers_10">
+    <resourceUri>TT_Customers_10</resourceUri>
+  </DataSource>
+  <DataSource id="TT_Countries">
+    <resourceUri>TT_Countries</resourceUri>
+  </DataSource>
+  <DataSource id="TT_Sales_10">
+    <resourceUri>TT_Sales_10</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_1" cardinality="CN_1" joinType="referential" multiJoinNode="Join_1" multiJoinCentralTable="TT_Sales_10" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="CUSTNAME"/>
+      <viewAttribute id="CUSTCOUNTRY"/>
+      <viewAttribute id="COUNTRY_NAME"/>
+      <viewAttribute id="CUSTID"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="TT_Customers_10">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTNAME" source="CUSTNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTCOUNTRY" source="CUSTCOUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTID" source="CUSTID"/>
+    </input>
+    <input node="TT_Countries">
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY_NAME" source="COUNTRY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTCOUNTRY" source="CUSTCOUNTRY"/>
+    </input>
+    <joinAttribute name="CUSTCOUNTRY"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1_2" cardinality="CN_1" joinType="referential" multiJoinNode="Join_1" multiJoinCentralTable="TT_Sales_10" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="SID" aggregationType="sum"/>
+      <viewAttribute id="SDATE"/>
+      <viewAttribute id="CUSTID" aggregationType="sum"/>
+      <viewAttribute id="CUSTNAME"/>
+      <viewAttribute id="CUSTCOUNTRY"/>
+      <viewAttribute id="COUNTRY_NAME"/>
+      <viewAttribute id="SAMT" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="TT_Sales_10">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SID" source="SID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SDATE" source="SDATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTID" source="CUSTID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SAMT" source="SAMT"/>
+    </input>
+    <input node="Join_1_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTNAME" source="CUSTNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTCOUNTRY" source="CUSTCOUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY_NAME" source="COUNTRY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTID" source="CUSTID"/>
+    </input>
+    <joinAttribute name="CUSTID"/>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="Join_1_2">
+  <attributes>
+    <attribute id="SID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SID"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="SID"/>
+    </attribute>
+    <attribute id="SDATE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SDATE"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="SDATE"/>
+    </attribute>
+    <attribute id="CUSTID" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTID"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="CUSTID"/>
+    </attribute>
+    <attribute id="CUSTNAME" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTNAME"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="CUSTNAME"/>
+    </attribute>
+    <attribute id="CUSTCOUNTRY" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTCOUNTRY"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="CUSTCOUNTRY"/>
+    </attribute>
+    <attribute id="COUNTRY_NAME" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COUNTRY_NAME"/>
+      <keyMapping columnObjectName="Join_1_2" columnName="COUNTRY_NAME"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="SAMT" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="SAMT"/>
+      <measureMapping columnObjectName="Join_1_2" columnName="SAMT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="210"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="TT_Sales_10" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="138"/>
+    </shape>
+    <shape modelObjectName="TT_Customers_10" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="169"/>
+    </shape>
+    <shape modelObjectName="TT_Countries" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_1">
+      <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="171"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

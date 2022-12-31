@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_Customer" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CV_Customer_sales"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="TT_Customers_10">
+    <resourceUri>TT_Customers_10</resourceUri>
+  </DataSource>
+  <DataSource id="TT_Sales_10">
+    <resourceUri>TT_Sales_10</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_1" cardinality="CN_N" joinType="inner">
+    <viewAttributes>
+      <viewAttribute id="CUSTID" aggregationType="sum"/>
+      <viewAttribute id="CUSTNAME"/>
+      <viewAttribute id="CUSTCOUNTRY"/>
+      <viewAttribute id="CUSTREGION"/>
+      <viewAttribute id="SID" aggregationType="sum"/>
+      <viewAttribute id="SDATE"/>
+      <viewAttribute id="SAMT" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="Monto_IVA" datatype="DECIMAL" length="13" scale="1" expressionLanguage="SQL">
+        <formula>&quot;SAMT&quot;*1.12</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="TT_Customers_10">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTID" source="CUSTID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTNAME" source="CUSTNAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTCOUNTRY" source="CUSTCOUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTREGION" source="CUSTREGION"/>
+    </input>
+    <input node="TT_Sales_10">
+      <mapping xsi:type="Calculation:AttributeMapping" target="SID" source="SID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SDATE" source="SDATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="SAMT" source="SAMT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTID" source="CUSTID"/>
+    </input>
+    <joinAttribute name="CUSTID"/>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="Join_1">
+  <attributes>
+    <attribute id="CUSTID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTID"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTID"/>
+    </attribute>
+    <attribute id="CUSTNAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTNAME"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTNAME"/>
+    </attribute>
+    <attribute id="CUSTCOUNTRY" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTCOUNTRY"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTCOUNTRY"/>
+    </attribute>
+    <attribute id="CUSTREGION" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTREGION"/>
+      <keyMapping columnObjectName="Join_1" columnName="CUSTREGION"/>
+    </attribute>
+    <attribute id="SID" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SID"/>
+      <keyMapping columnObjectName="Join_1" columnName="SID"/>
+    </attribute>
+    <attribute id="SDATE" order="6" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SDATE"/>
+      <keyMapping columnObjectName="Join_1" columnName="SDATE"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="SAMT" order="7" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="SAMT"/>
+      <measureMapping columnObjectName="Join_1" columnName="SAMT"/>
+    </measure>
+    <measure id="Monto_IVA" order="8" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="Monto_IVA"/>
+      <measureMapping columnObjectName="Join_1" columnName="Monto_IVA"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures>
+    <measure id="COUNT_1" order="9" aggregationType="sum" measureType="simple" calculatedMeasureType="counter" datatype="BIGINT" length="">
+      <descriptions defaultDescription="Contador"/>
+      <exceptionAggregation>
+        <attribute attributeName="CUSTNAME"/>
+      </exceptionAggregation>
+      <formula>1</formula>
+      </measure>
+    <measure id="Old_days" order="10" aggregationType="sum" measureType="simple" datatype="INTEGER" expressionLanguage="SQL">
+      <descriptions defaultDescription="Old date"/>
+      <formula>DAYS_BETWEEN(&quot;SDATE&quot;, CURRENT_DATE)</formula>
+      </measure>
+  </calculatedMeasures>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="100" y="105"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Join_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="-18" y="228"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="TT_Customers_10" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="169"/>
+    </shape>
+    <shape modelObjectName="TT_Sales_10" modelObjectNameSpace="Join_1" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="138"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

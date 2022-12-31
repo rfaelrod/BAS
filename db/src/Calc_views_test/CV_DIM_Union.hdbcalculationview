@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_DIM_Union" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CV_DIM_Union"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="TT_Countries">
+    <resourceUri>TT_Countries</resourceUri>
+  </DataSource>
+  <DataSource id="TT_Countries_02">
+    <resourceUri>TT_Countries_02</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:UnionView" id="Union_1">
+    <viewAttributes>
+      <viewAttribute id="CUSTCOUNTRY"/>
+      <viewAttribute id="COUNTRY_NAME"/>
+      <viewAttribute id="POP_CONST"/>
+      <viewAttribute datatype="VARCHAR" length="5" id="Country_status"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="TT_Countries">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTCOUNTRY" source="CUSTCOUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY_NAME" source="COUNTRY_NAME"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="POP_CONST" null="false" value="0"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Country_status" null="false" value="OLD"/>
+    </input>
+    <input node="TT_Countries_02">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUSTCOUNTRY" source="CUSTCOUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="COUNTRY_NAME" source="COUNTRY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="POP_CONST" source="POPULATION"/>
+      <mapping xsi:type="Calculation:ConstantAttributeMapping" target="Country_status" null="false" value="NEW"/>
+    </input>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="Union_1">
+  <attributes>
+    <attribute id="CUSTCOUNTRY" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTCOUNTRY"/>
+      <keyMapping columnObjectName="Union_1" columnName="CUSTCOUNTRY"/>
+    </attribute>
+    <attribute id="COUNTRY_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COUNTRY_NAME"/>
+      <keyMapping columnObjectName="Union_1" columnName="COUNTRY_NAME"/>
+    </attribute>
+    <attribute id="POP_CONST" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="POP_CONST"/>
+      <keyMapping columnObjectName="Union_1" columnName="POP_CONST"/>
+    </attribute>
+    <attribute id="Country_status" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="Country_status"/>
+      <keyMapping columnObjectName="Union_1" columnName="Country_status"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Union_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="195"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

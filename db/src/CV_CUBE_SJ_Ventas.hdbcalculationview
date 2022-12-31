@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="CV_CUBE_SJ_Ventas" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="Cust.View Cubo Ventas incluyendo direcc. por fecha"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="CV_DIM_Sales_data_10">
+    <resourceUri>CV_DIM_Sales_data_10</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="SID"/>
+      <viewAttribute id="SDATE"/>
+      <viewAttribute id="SAMT"/>
+      <viewAttribute id="CUSTID"/>
+      <viewAttribute id="CUSTNAME"/>
+      <viewAttribute id="CUSTREGION"/>
+      <viewAttribute id="CUSTCOUNTRY"/>
+      <viewAttribute id="COUNTRY_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="CV_DIM_Sales_data_10"/>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="Projection_1">
+  <attributes>
+    <attribute id="SDATE" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="SDATE"/>
+      <keyMapping columnObjectName="Projection_1" columnName="SDATE"/>
+    </attribute>
+    <attribute id="CUSTNAME" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTNAME"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CUSTNAME"/>
+    </attribute>
+    <attribute id="CUSTREGION" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTREGION"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CUSTREGION"/>
+    </attribute>
+    <attribute id="CUSTCOUNTRY" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUSTCOUNTRY"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CUSTCOUNTRY"/>
+    </attribute>
+    <attribute id="COUNTRY_NAME" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="COUNTRY_NAME"/>
+      <keyMapping columnObjectName="Projection_1" columnName="COUNTRY_NAME"/>
+    </attribute>
+    <attribute id="CUSTID$local">
+      <descriptions defaultDescription="CUSTID"/>
+      <keyMapping columnObjectName="Projection_1" columnName="CUSTID"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="SID" order="1" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="SID"/>
+      <measureMapping columnObjectName="Projection_1" columnName="SID"/>
+    </measure>
+    <measure id="SAMT" order="3" aggregationType="sum" measureType="simple">
+      <descriptions defaultDescription="SAMT"/>
+      <measureMapping columnObjectName="Projection_1" columnName="SAMT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="CV_DIM_ADDR_CUST">
+      <attributes>
+        <attributeRef>CUSTID$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>CUSTID</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_N" joinType="inner" joinOperator="Equal"/>
+      <temporalJoinProperties temporalElementName="SDATE" fromElementName="BEGDA" toElementName="ENDDA" temporalCondition="INCLUDE_BOTH"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="100" y="179"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="274"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="Projection_1" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="-8" y="30"/>
+      <rectangleSize width="171"/>
+    </shape>
+    <shape modelObjectName="CV_DIM_ADDR_CUST" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="185"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

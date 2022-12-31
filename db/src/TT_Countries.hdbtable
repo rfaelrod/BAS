@@ -1,0 +1,4 @@
+COLUMN TABLE "TT_Countries" (
+  custcountry varchar(3),
+  Country_name varchar(60)
+);

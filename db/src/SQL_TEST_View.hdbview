@@ -1,0 +1,2 @@
+VIEW "SQL_TEST_View"
+AS SELECT "CUSTCOUNTRY", "COUNTRY_NAME" from "TT_Countries";
