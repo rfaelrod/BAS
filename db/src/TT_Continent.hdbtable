@@ -1,0 +1,5 @@
+ COLUMN TABLE "hana_space::TT_Continent" (
+    id_continent NVARCHAR(5),
+    desc_cont nvarchar(50),
+    primary key (id_continent)
+)

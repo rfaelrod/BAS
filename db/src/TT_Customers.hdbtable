@@ -1,0 +1,8 @@
+COLUMN TABLE "hana_space::TT_Customers" (
+  Cust_id nvarchar(5),
+  cust_name NVARCHAR(70),
+  Date_create date,
+  max_credit integer,
+  id_city varchar(5),
+  PRIMARY KEY (Cust_id)
+)
