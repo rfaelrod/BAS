@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:DataFoundation="http://www.sap.com/ndb/BiModelDataFoundation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="hana_space::CV_Hierarchy" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CV_Hierarchy"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="hana_space::TT_Country">
+    <resourceUri>hana_space::TT_Country</resourceUri>
+  </DataSource>
+  <DataSource id="hana_space::TT_Continent">
+    <resourceUri>hana_space::TT_Continent</resourceUri>
+  </DataSource>
+  <DataSource id="hana_space::TT_Cities">
+    <resourceUri>hana_space::TT_Cities</resourceUri>
+  </DataSource>
+  <DataSource id="hana_space::TT_Customers">
+    <resourceUri>hana_space::TT_Customers</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_Customers_1" cardinality="CN_N" joinType="inner" multiJoinNode="Join_Customers" multiJoinCentralTable="hana_space::TT_Customers" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="DESC_COUNTRY"/>
+      <viewAttribute id="DESC_CONT"/>
+      <viewAttribute id="ID_COUNTRY"/>
+      <viewAttribute hidden="true" id="JOIN$ID_CONTINENT$ID_CONTINENT"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="hana_space::TT_Country">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_COUNTRY" source="DESC_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_COUNTRY" source="ID_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ID_CONTINENT$ID_CONTINENT" source="ID_CONTINENT"/>
+    </input>
+    <input node="hana_space::TT_Continent">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_CONT" source="DESC_CONT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ID_CONTINENT$ID_CONTINENT" source="ID_CONTINENT"/>
+    </input>
+    <joinAttribute name="JOIN$ID_CONTINENT$ID_CONTINENT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_Customers_2" cardinality="CN_N" joinType="inner" multiJoinNode="Join_Customers" multiJoinCentralTable="hana_space::TT_Customers" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="DESC_COUNTRY"/>
+      <viewAttribute id="DESC_CONT"/>
+      <viewAttribute id="ID_COUNTRY"/>
+      <viewAttribute id="CITY_NAME"/>
+      <viewAttribute id="ID_CITY"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="hana_space::TT_Cities">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CITY_NAME" source="CITY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_COUNTRY" source="ID_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_CITY" source="ID_CITY"/>
+    </input>
+    <input node="Join_Customers_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_COUNTRY" source="DESC_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_CONT" source="DESC_CONT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_COUNTRY" source="ID_COUNTRY"/>
+    </input>
+    <joinAttribute name="ID_COUNTRY"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Join_Customers_3" cardinality="CN_N" joinType="inner" multiJoinNode="Join_Customers" multiJoinCentralTable="hana_space::TT_Customers" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="DESC_COUNTRY"/>
+      <viewAttribute id="DESC_CONT"/>
+      <viewAttribute id="ID_COUNTRY"/>
+      <viewAttribute id="CITY_NAME"/>
+      <viewAttribute id="ID_CITY"/>
+      <viewAttribute id="CUST_ID"/>
+      <viewAttribute id="CUST_NAME"/>
+      <viewAttribute id="DATE_CREATE"/>
+      <viewAttribute id="MAX_CREDIT" aggregationType="sum"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="hana_space::TT_Customers">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUST_ID" source="CUST_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUST_NAME" source="CUST_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_CREATE" source="DATE_CREATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MAX_CREDIT" source="MAX_CREDIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_CITY" source="ID_CITY"/>
+    </input>
+    <input node="Join_Customers_2">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_COUNTRY" source="DESC_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_CONT" source="DESC_CONT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_COUNTRY" source="ID_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CITY_NAME" source="CITY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_CITY" source="ID_CITY"/>
+    </input>
+    <joinAttribute name="ID_CITY"/>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="Join_Customers_3">
+  <attributes>
+    <attribute id="CUST_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUST_ID"/>
+      <keyMapping columnObjectName="Join_Customers_3" columnName="CUST_ID"/>
+    </attribute>
+    <attribute id="CUST_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUST_NAME"/>
+      <keyMapping columnObjectName="Join_Customers_3" columnName="CUST_NAME"/>
+    </attribute>
+    <attribute id="DATE_CREATE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DATE_CREATE"/>
+      <keyMapping columnObjectName="Join_Customers_3" columnName="DATE_CREATE"/>
+    </attribute>
+    <attribute id="ID_CITY" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID_CITY"/>
+      <keyMapping columnObjectName="Join_Customers_3" columnName="ID_CITY"/>
+    </attribute>
+    <attribute id="CITY_NAME" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CITY_NAME"/>
+      <keyMapping columnObjectName="Join_Customers_3" columnName="CITY_NAME"/>
+    </attribute>
+    <attribute id="ID_COUNTRY" order="7" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID_COUNTRY"/>
+      <keyMapping columnObjectName="Join_Customers_3" columnName="ID_COUNTRY"/>
+    </attribute>
+    <attribute id="DESC_COUNTRY" order="8" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DESC_COUNTRY"/>
+      <keyMapping columnObjectName="Join_Customers_3" columnName="DESC_COUNTRY"/>
+    </attribute>
+    <attribute id="DESC_CONT" order="9" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DESC_CONT"/>
+      <keyMapping columnObjectName="Join_Customers_3" columnName="DESC_CONT"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="MAX_CREDIT" order="4" aggregationType="sum" measureType="simple" restrictionExpressionLanguage="SQL">
+      <descriptions defaultDescription="MAX_CREDIT"/>
+      <measureMapping columnObjectName="Join_Customers_3" columnName="MAX_CREDIT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions>
+    <localDimension id="Hierarchy_Location">
+      <attributeRef xsi:type="DataFoundation:Attribute">DESC_CONT</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">DESC_COUNTRY</attributeRef>
+      <attributeRef xsi:type="DataFoundation:Attribute">CITY_NAME</attributeRef>
+      <hierarchies>
+        <hierarchy xsi:type="Dimension:LeveledHierarchy" id="Hierarchy_Location" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+          <descriptions defaultDescription="Hierarchy_Location"/>
+          <unassignedMemberProperties mode="FALSE"/>
+          <levels>
+            <level levelAttribute="DESC_CONT" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="DESC_CONT" sortDirection="ASC"/>
+            <level levelAttribute="DESC_COUNTRY" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="DESC_COUNTRY" sortDirection="ASC"/>
+            <level levelAttribute="CITY_NAME" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="CITY_NAME" sortDirection="ASC"/>
+          </levels>
+        </hierarchy>
+      </hierarchies>
+    </localDimension>
+  </localDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Join_Customers" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="106" y="215"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="hana_space::TT_Customers" modelObjectNameSpace="Join_Customers" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_Customers">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="224"/>
+    </shape>
+    <shape modelObjectName="hana_space::TT_Cities" modelObjectNameSpace="Join_Customers" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_Customers">
+      <upperLeftCorner x="320" y="30"/>
+      <rectangleSize width="193"/>
+    </shape>
+    <shape modelObjectName="hana_space::TT_Country" modelObjectNameSpace="Join_Customers" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_Customers">
+      <upperLeftCorner x="620" y="30"/>
+      <rectangleSize width="205"/>
+    </shape>
+    <shape modelObjectName="hana_space::TT_Continent" modelObjectNameSpace="Join_Customers" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Join_Customers">
+      <upperLeftCorner x="577" y="223"/>
+      <rectangleSize width="215"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

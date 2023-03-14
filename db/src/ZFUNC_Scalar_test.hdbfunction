@@ -1,0 +1,20 @@
+FUNCTION "hana_space::ZFUNC_Scalar_test"(X Double, Y double )
+    -- X y Y son parámetros de entrada esperados, son opcionales
+    -- RETURNS:         Scalar function
+            -- Obtiene resultados en parámetros, en valores opcionales
+    -- RETURNS TABLE:   Table function
+
+    -- Devuelve dos resultados: 
+    RETURNS Result_ADD double, Result_MUL DOUBLE        --INDICA SCALAR
+    LANGUAGE SQLSCRIPT
+
+    -- Mejora de seguridad: 
+    -- SQL SECURITY INVOKER 
+    AS
+BEGIN
+    /*****************************
+        Write your function logic
+    ****************************/
+    Result_ADD := :X + :Y;
+    Result_MUL := :X * :Y;
+END;

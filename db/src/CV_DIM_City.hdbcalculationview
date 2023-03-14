@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" xmlns:Dimension="http://www.sap.com/ndb/BiModelDimension.ecore" id="hana_space::CV_DIM_City" applyPrivilegeType="NONE" dataCategory="DIMENSION" dimensionType="STANDARD" schemaVersion="3.0" hierarchyGeneration="SQL" outputViewType="Projection" cacheInvalidationPeriod="NONE" enforceSqlExecution="true">
+<descriptions defaultDescription="CV_DIM_City"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="hana_space::TT_Continent">
+    <resourceUri>hana_space::TT_Continent</resourceUri>
+  </DataSource>
+  <DataSource id="hana_space::TT_Country">
+    <resourceUri>hana_space::TT_Country</resourceUri>
+  </DataSource>
+  <DataSource id="hana_space::TT_Cities">
+    <resourceUri>hana_space::TT_Cities</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Ciudades_Hie_1" cardinality="C1_N" joinType="inner" multiJoinNode="Ciudades_Hie" multiJoinCentralTable="hana_space::TT_Cities" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="DESC_COUNTRY"/>
+      <viewAttribute id="ID_CONTINENT"/>
+      <viewAttribute id="DESC_CONT"/>
+      <viewAttribute id="ID_COUNTRY"/>
+      <viewAttribute hidden="true" id="JOIN$ID_CONTINENT$ID_CONTINENT"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="hana_space::TT_Continent">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_CONT" source="DESC_CONT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ID_CONTINENT$ID_CONTINENT" source="ID_CONTINENT"/>
+    </input>
+    <input node="hana_space::TT_Country">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_COUNTRY" source="DESC_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_CONTINENT" source="ID_CONTINENT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_COUNTRY" source="ID_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="JOIN$ID_CONTINENT$ID_CONTINENT" source="ID_CONTINENT"/>
+    </input>
+    <joinAttribute name="JOIN$ID_CONTINENT$ID_CONTINENT"/>
+  </calculationView>
+  <calculationView xsi:type="Calculation:JoinView" id="Ciudades_Hie_2" cardinality="CN_N" joinType="inner" multiJoinNode="Ciudades_Hie" multiJoinCentralTable="hana_space::TT_Cities" multiJoinOrder="Outside In">
+    <viewAttributes>
+      <viewAttribute id="DESC_COUNTRY"/>
+      <viewAttribute id="ID_CONTINENT"/>
+      <viewAttribute id="DESC_CONT"/>
+      <viewAttribute id="ID_COUNTRY"/>
+      <viewAttribute id="ID_CITY"/>
+      <viewAttribute id="CITY_NAME"/>
+    </viewAttributes>
+    <calculatedViewAttributes/>
+    <input node="hana_space::TT_Cities">
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_CITY" source="ID_CITY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CITY_NAME" source="CITY_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_COUNTRY" source="ID_COUNTRY"/>
+    </input>
+    <input node="Ciudades_Hie_1">
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_COUNTRY" source="DESC_COUNTRY"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_CONTINENT" source="ID_CONTINENT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DESC_CONT" source="DESC_CONT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_COUNTRY" source="ID_COUNTRY"/>
+    </input>
+    <joinAttribute name="ID_COUNTRY"/>
+  </calculationView>
+</calculationViews>
+<inlineHierarchy xsi:type="Dimension:LeveledHierarchy" id="Ciud_Pais_Cont" aggregateAllNodes="true" orphanedNodesHandling="ROOT_NODES" rootNodeVisibility="ADD_ROOT_NODE" withRootNode="true" nodeStyle="NAME_PATH_ENFORCED" cacheEnabled="true" cycleHandling="BREAKUP" emptyValueIsNull="true">
+  <descriptions defaultDescription="Ciud_Pais_Cont"/>
+  <unassignedMemberProperties mode="FALSE"/>
+  <levels>
+    <level levelAttribute="DESC_CONT" levelType="MDLEVEL_TYPE_REGULAR" order="1" orderAttribute="DESC_CONT" sortDirection="ASC"/>
+    <level levelAttribute="DESC_COUNTRY" levelType="MDLEVEL_TYPE_REGULAR" order="2" orderAttribute="DESC_COUNTRY" sortDirection="ASC"/>
+    <level levelAttribute="CITY_NAME" levelType="MDLEVEL_TYPE_REGULAR" order="3" orderAttribute="CITY_NAME" sortDirection="ASC"/>
+  </levels>
+</inlineHierarchy>
+
+<logicalModel id="Ciudades_Hie_2">
+  <attributes>
+    <attribute id="ID_CITY" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID_CITY"/>
+      <keyMapping columnObjectName="Ciudades_Hie_2" columnName="ID_CITY"/>
+    </attribute>
+    <attribute id="CITY_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CITY_NAME"/>
+      <keyMapping columnObjectName="Ciudades_Hie_2" columnName="CITY_NAME"/>
+    </attribute>
+    <attribute id="ID_COUNTRY" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID_COUNTRY"/>
+      <keyMapping columnObjectName="Ciudades_Hie_2" columnName="ID_COUNTRY"/>
+    </attribute>
+    <attribute id="DESC_COUNTRY" order="4" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DESC_COUNTRY"/>
+      <keyMapping columnObjectName="Ciudades_Hie_2" columnName="DESC_COUNTRY"/>
+    </attribute>
+    <attribute id="ID_CONTINENT" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID_CONTINENT"/>
+      <keyMapping columnObjectName="Ciudades_Hie_2" columnName="ID_CONTINENT"/>
+    </attribute>
+    <attribute id="DESC_CONT" order="6" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DESC_CONT"/>
+      <keyMapping columnObjectName="Ciudades_Hie_2" columnName="DESC_CONT"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes/>
+  <baseMeasures/>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Ciudades_Hie" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="194"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="hana_space::TT_Cities" modelObjectNameSpace="Ciudades_Hie" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Ciudades_Hie">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="193"/>
+    </shape>
+    <shape modelObjectName="hana_space::TT_Continent" modelObjectNameSpace="Ciudades_Hie" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Ciudades_Hie">
+      <upperLeftCorner x="492" y="24"/>
+      <rectangleSize width="215"/>
+    </shape>
+    <shape modelObjectName="hana_space::TT_Country" modelObjectNameSpace="Ciudades_Hie" modelObjectType="JoinNodeInput" multiJoinViewNodeName="Ciudades_Hie">
+      <upperLeftCorner x="248" y="208"/>
+      <rectangleSize width="205"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

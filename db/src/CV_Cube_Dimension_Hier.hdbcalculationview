@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="hana_space::CV_Cube_Dimension_Hier" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" hierarchyGeneration="SQL" cacheInvalidationPeriod="NONE" enforceSqlExecution="true" hierarchiesSQLEnabled="true">
+<descriptions defaultDescription="CV_Cube_Dimension_Hier"/>
+<localVariables/>
+<variableMappings/>
+<executionHints name="query_level_sql_hints" value="RESULT_CACHE"/>
+<executionHints name="qo_pop_hints" value="RESULT_CACHE"/>
+<dataSources>
+  <DataSource id="hana_space::TT_Customers">
+    <resourceUri>hana_space::TT_Customers</resourceUri>
+  </DataSource>
+</dataSources>
+<snapshotProcedures/>
+<staticResultCache cacheEnabled="true" retentionPeriod="60" force="false">
+  <cacheColumn id="CUST_ID"/>
+  <cacheColumn id="CUST_NAME"/>
+  <cacheColumn id="ID_CITY_1"/>
+  <filterCondition>&quot;ID_CITY_1&quot; IS NOT NULL</filterCondition>
+</staticResultCache>
+<calculationViews>
+  <calculationView xsi:type="Calculation:JoinView" id="Table_Cust" ignoreMultipleOutputsForFilter="false">
+    <viewAttributes>
+      <viewAttribute id="CUST_ID"/>
+      <viewAttribute id="CUST_NAME"/>
+      <viewAttribute id="DATE_CREATE"/>
+      <viewAttribute id="MAX_CREDIT" aggregationType="sum"/>
+      <viewAttribute id="ID_CITY"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="CC_1" datatype="NVARCHAR" length="13" expressionLanguage="SQL">
+        <formula></formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="hana_space::TT_Customers">
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUST_ID" source="CUST_ID"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="CUST_NAME" source="CUST_NAME"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="DATE_CREATE" source="DATE_CREATE"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="MAX_CREDIT" source="MAX_CREDIT"/>
+      <mapping xsi:type="Calculation:AttributeMapping" target="ID_CITY" source="ID_CITY"/>
+    </input>
+  </calculationView>
+</calculationViews>
+
+<logicalModel id="Table_Cust">
+  <attributes>
+    <attribute id="CUST_ID" order="1" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUST_ID"/>
+      <keyMapping columnObjectName="Table_Cust" columnName="CUST_ID"/>
+    </attribute>
+    <attribute id="CUST_NAME" order="2" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="CUST_NAME"/>
+      <keyMapping columnObjectName="Table_Cust" columnName="CUST_NAME"/>
+    </attribute>
+    <attribute id="DATE_CREATE" order="3" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="DATE_CREATE"/>
+      <keyMapping columnObjectName="Table_Cust" columnName="DATE_CREATE"/>
+    </attribute>
+    <attribute id="ID_CITY_1" order="5" displayAttribute="false" attributeHierarchyActive="false">
+      <descriptions defaultDescription="ID_CITY"/>
+      <keyMapping columnObjectName="Table_Cust" columnName="ID_CITY"/>
+    </attribute>
+    <attribute id="ID_CITY$local">
+      <keyMapping columnObjectName="Table_Cust" columnName="ID_CITY"/>
+    </attribute>
+  </attributes>
+  <calculatedAttributes>
+    <calculatedAttribute id="CC_1" order="6" semanticType="empty" displayAttribute="false" attributeHierarchyActive="false">
+      <keyCalculation datatype="NVARCHAR" expressionLanguage="SQL" length="13">
+        <formula></formula>
+      </keyCalculation>
+    </calculatedAttribute>
+  </calculatedAttributes>
+  <baseMeasures>
+    <measure id="MAX_CREDIT" order="4" aggregationType="sum" measureType="simple" restrictionExpressionLanguage="SQL">
+      <descriptions defaultDescription="MAX_CREDIT"/>
+      <measureMapping columnObjectName="Table_Cust" columnName="MAX_CREDIT"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+  <sharedDimensions>
+    <logicalJoin associatedObjectUri="hana_space::CV_DIM_City">
+      <attributes>
+        <attributeRef>ID_CITY$local</attributeRef>
+      </attributes>
+      <associatedAttributeNames>
+        <attributeName>ID_CITY</attributeName>
+      </associatedAttributeNames>
+      <properties cardinality="CN_N" joinType="referential" joinOperator="Equal"/>
+      <associatedAttributeFeatures/>
+    </logicalJoin>
+  </sharedDimensions>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="40" y="85"/>
+    </shape>
+    
+  
+    <shape expanded="true" modelObjectName="Table_Cust" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="100" y="211"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+    <shape modelObjectName="hana_space::TT_Customers" modelObjectNameSpace="Table_Cust" modelObjectType="JoinNodeInput">
+      <upperLeftCorner x="170" y="74"/>
+      <rectangleSize width="224"/>
+    </shape>
+    <shape modelObjectName="Table_Cust" modelObjectNameSpace="StarJoinViewNodeInput" modelObjectType="repository">
+      <upperLeftCorner x="20" y="30"/>
+      <rectangleSize width="250"/>
+    </shape>
+    <shape modelObjectName="hana_space::CV_DIM_City" modelObjectNameSpace="StarJoinViewNodeSharedCV" modelObjectType="repository">
+      <upperLeftCorner x="313" y="11"/>
+      <rectangleSize width="212"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

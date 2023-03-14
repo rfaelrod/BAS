@@ -1,0 +1,24 @@
+PROCEDURE "hana_space::ZPROCED_TEST"
+(IN in_tax decimal(5,2),
+OUT out_with_tax table
+    (CUST_ID NVARCHAR (5),
+    CUST_NAME NVARCHAR (70),
+    DATE_CREATE DATE,
+    MAX_CREDIT INT
+    )
+)
+    LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   READS SQL DATA AS
+BEGIN
+   /*************************************
+       Write your procedure logic
+   *************************************/
+   out_with_tax = SELECT    CUST_ID,
+                            CUST_NAME,
+                            DATE_CREATE,
+                            MAX_CREDIT
+                    FROM "hana_space::TT_Customers";
+                    
+END

@@ -1,0 +1,23 @@
+FUNCTION "hana_space::ZFUNC_Table_test"( VAL CHAR)
+    -- Las funciones tabla se usan en cualquier sitio donde un origen de
+    -- datos se puede definir como Projection o Join Node
+    -- Llamar a una Function Table es como llamar a una tabla dinámica.
+    -- RETURNS TABLE 
+    -- Es una taba de dos columnas:
+    RETURNS TABLE (CUST_ID_A NVARCHAR(5), MAX_CREDIT_B INT)
+    LANGUAGE SQLSCRIPT
+    -- SQL SECURITY INVOKER 
+    AS
+BEGIN
+    /*****************************
+        Write your function logic
+    ****************************/
+    -- Devuelve la columna A, 
+    -- Y la otra columna que es el parámetro VAL multiplicado por la columna B,
+    -- El resultado lo devuelve como columna B:
+    -- RETURN SELECT A, :VAL * B as B from mytable;
+
+    RETURN select   CUST_ID as CUST_ID_A,
+                    :VAL * MAX_CREDIT as MAX_CREDIT_B 
+            from "hana_space::TT_Customers";
+END;
